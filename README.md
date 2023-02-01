@@ -1,4 +1,4 @@
-#Intro
+# Intro
 This haphazardly written shell script fetches files from samftp server.
 
 Files are seleted though the fzf program and then fetched with yt-dlp.
@@ -8,7 +8,7 @@ To select multiple files (up to four -this can be changed easily by configuring
 
 Press Ctrl+C couple of times to quit during a session.
 
-#Dependency's
+# Dependency's
     1. yt-dlp
     2. fzf
     3. awk
@@ -18,7 +18,6 @@ Press Ctrl+C couple of times to quit during a session.
     7. xmllint from libxml2
 
 No. 3-7 are usually preinstalled in gnu/linux systems, I think.
-
 
 
 Inspired by ytfzf by pystardust.
