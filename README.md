@@ -19,5 +19,8 @@ Press Ctrl+C couple of times to quit during a session.
 
 No. 3-7 are usually preinstalled in gnu/linux systems, I think.
 
+# Screenshot
+![screenshot](screenshot.jpg)
+
 
 Inspired by ytfzf by pystardust.
