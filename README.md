@@ -3,8 +3,8 @@ This haphazardly written shell script fetches files from samftp server.
 
 Files are seleted though the fzf program and then fetched with yt-dlp.
 
-To select multiple files (up to four -this can be changed easily by configuring
-        the loop in the script) hold shift and press tab, finally press enter.
+To select multiple files (up to eight- this can be changed by configuring
+        the --multi flag in fzfCmd() in the script) hold shift and press tab, finally press enter.
 
 Press Ctrl+C couple of times to quit during a session.
 

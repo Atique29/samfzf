@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
-#created by atique29
+#created by lelouch29
 #no. of seasons must be less or equal to 10, otherwise shows blank list
-#who watches a show with more than 10 seasons?
+#Who watches a show with more than 10 seasons? (not a bug, I swear)
 
 declare urls=(
 "englishMovies                 http://172.16.50.7/SAM-FTP-2/English%20Movies/ "
@@ -13,7 +12,7 @@ declare urls=(
 "anime                         http://172.16.50.10/SAM-FTP-3/Anime%20%26%20Cartoon%20TV%20Series/ ")
 
 fzfCmd () {
-    fzf --cycle --border='sharp' --border-label='∈ samfzf ∋' --border-label-pos=0 --padding=1 --margin=2 --multi=4 --prompt='●▶ ' --marker='+'
+    fzf --cycle --border='sharp' --border-label='∈ samfzf ∋' --border-label-pos=0 --padding=1 --margin=2 --multi=8 --prompt='●▶ ' --marker='+'
 }
 
 specialChars="$|–|—|_|.|+|!|*|‘|(|)|,|à|á|â|ã|ä|ç|è|é|ê|ë|ì|í|î|ï|ñ|ò|ó|ô|õ|ö|š|ù|ú|û|ü|ý|ÿ|ž"
@@ -33,7 +32,8 @@ do
         inPage=$(echo $page | xmllint --html --xpath "//a/text()" -)
 
         #some brute force regex specific to SAMFTP
-        selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed -e 's/ /.*/g' -e 's/and//g' -e "s/[$specialChars]/.*/g" -e 's/♥/E2%99%A5.*/' -e 's/♦/E2%99%A6.*/' -e 's/★/E2%98%85.*/')
+        # the ".*2" in the last regex is for samftps urls ending like: ...../season%202, the first 2 is common to urls of inside of "Seasons"
+        selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed  -e 's/and//g' -e "s/[$specialChars]/.*/g" -e 's/♥/E2%99%A5.*/' -e 's/♦/E2%99%A6.*/' -e 's/★/E2%98%85.*/' -e 's/ /.*2.*/g')
 
         linkList=$(echo $page | xmllint --html -xpath "//a/@href" -  | sed -e 's/href=//' -e 's/"//g')
         link=$(echo "$linkList" | grep -E "$selected")
