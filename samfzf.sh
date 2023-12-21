@@ -4,13 +4,12 @@
 #Who watches a show with more than 10 seasons? (not a bug, I swear)
 
 declare urls=(
-"englishMovies                 http://172.16.50.7/SAM-FTP-2/English%20Movies/ "
-"englishMovies1080p            http://172.16.50.8/SAM-FTP-1/English%20Movies%20%281080p%29/ "
-"animationMovies               http://172.16.50.10/SAM-FTP-3/Animation%20Movies/ "
-"animationMovies1080p          http://172.16.50.10/SAM-FTP-3/Animation%20Movies%20%281080p%29/ "
-"tvSeries                      http://172.16.50.12/SAM-FTP-1/TV-WEB-Series/ "
-"anime                         http://172.16.50.10/SAM-FTP-3/Anime%20%26%20Cartoon%20TV%20Series/ ")
-
+"englishMovies                 http://172.16.50.7/SAM-FTP-7/English%20Movies/ "
+"englishMovies1080p            http://172.16.50.14/SAM-FTP-14/English%20Movies%20%281080p%29/ "
+"animationMovies               http://172.16.50.14/SAM-FTP-14/Animation%20Movies/ "
+"animationMovies1080p          http://172.16.50.14/SAM-FTP-14/Animation%20Movies%20%281080p%29/ "
+"tvSeries                      http://172.16.50.12/SAM-FTP-12/TV-WEB-Series/ "
+"anime                         http://172.16.50.9/SAM-FTP-9/Anime%20%26%20Cartoon%20TV%20Series/ ")
 fzfCmd () {
     fzf --cycle --border='sharp' --border-label='∈ samfzf ∋' --border-label-pos=0 --padding=1 --margin=2 --multi=8 --prompt='●▶ ' --marker='+'
 }
