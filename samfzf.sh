@@ -4,12 +4,13 @@
 #Who watches a show with more than 10 seasons? (not a bug, I swear)
 
 declare urls=(
-"englishMovies                 http://172.16.50.7/SAM-FTP-7/English%20Movies/ "
-"englishMovies1080p            http://172.16.50.14/SAM-FTP-14/English%20Movies%20%281080p%29/ "
-"animationMovies               http://172.16.50.14/SAM-FTP-14/Animation%20Movies/ "
-"animationMovies1080p          http://172.16.50.14/SAM-FTP-14/Animation%20Movies%20%281080p%29/ "
-"tvSeries                      http://172.16.50.12/SAM-FTP-12/TV-WEB-Series/ "
-"anime                         http://172.16.50.9/SAM-FTP-9/Anime%20%26%20Cartoon%20TV%20Series/ ")
+"englishMovies                 http://172.16.50.7/DHAKA-FLIX-7/English%20Movies/"
+"englishMovies1080p            http://172.16.50.14/DHAKA-FLIX-14/English%20Movies%20%281080p%29/"
+"animationMovies               http://172.16.50.14/DHAKA-FLIX-14/Animation%20Movies/"
+"animationMovies1080p          http://172.16.50.14/DHAKA-FLIX-14/Animation%20Movies%20%281080p%29/"
+"tvSeries                      http://172.16.50.12/DHAKA-FLIX-12/TV-WEB-Series/"
+"anime                         http://172.16.50.9/DHAKA-FLIX-9/Anime%20%26%20Cartoon%20TV%20Series/")
+
 fzfCmd () {
     fzf --cycle --border='sharp' --border-label='∈ samfzf ∋' --border-label-pos=0 --padding=1 --margin=2 --multi=8 --prompt='●▶ ' --marker='+'
 }
@@ -30,6 +31,7 @@ do
 
         inPage=$(echo $page | xmllint --html --xpath "//a/text()" -)
 
+
         #some brute force regex specific to SAMFTP
         # the ".*2" in the last regex is for samftps urls ending like: ...../season%202, the first 2 is common to urls of inside of "Seasons"
         selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed  -e 's/and//g' -e "s/[$specialChars]/.*/g" -e 's/♥/E2%99%A5.*/' -e 's/♦/E2%99%A6.*/' -e 's/★/E2%98%85.*/' -e 's/ /.*2.*/g')
@@ -43,21 +45,28 @@ do
             link=$(echo "$linkList" | grep -E "$fixSelect")
         fi
 
-        baseURL=$(echo "$choice" | sed 's/\/SAM-FTP.*$//')
+        # they changed the url formats, i need to adapt.
+        # baseURL=$(echo "$choice" | sed 's/\/SAM-FTP.*$//')
+        baseURL=$(echo "$choice" | sed 's#^\(http://[^/]*\).*#\1#' )
         fullURL=$(echo $baseURL$link | sed 's/ //g')
         choice=$fullURL
     else
         inPage=$(echo $page | xmllint --html --xpath "//a/text()" -)
         selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed -e 's/ /.*/g' -e 's/and//g' -e "s/[$specialChars]/.*/g")
+        # echo $selected
         linkList=$(echo $page | xmllint --html -xpath "//a/@href" -  | sed -e 's/href=//' -e 's/"//g')
+        # echo $linkList
         link=$(echo "$linkList" | grep -E "$selected")
+        # echo $link
 
         if [ $? == 1 ]; then
             fixSelect=$(echo "$selected" | sed 's/[^a-zA-Z]/.*/g')
             link=$(echo "$linkList" | grep -E "$fixSelect")
         fi
 
-        baseURL=$(echo "$choice" | sed 's/\/SAM-FTP.*$//')
+        # same issue here
+        # baseURL=$(echo "$choice" | sed 's/\/SAM-FTP.*$//')
+        baseURL=$(echo "$choice" | sed 's#^\(http://[^/]*\).*#\1#' )
         line=1
 
         for i in $link
