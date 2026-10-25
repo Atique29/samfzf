@@ -34,7 +34,7 @@ do
 
         #some brute force regex specific to SAMFTP
         # the ".*2" in the last regex is for samftps urls ending like: ...../season%202, the first 2 is common to urls of inside of "Seasons"
-        selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed  -e 's/and//g' -e "s/[$specialChars]/.*/g" -e 's/♥/E2%99%A5.*/' -e 's/♦/E2%99%A6.*/' -e 's/★/E2%98%85.*/' -e 's/ /.*2.*/g')
+        selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed  -e 's/ and / /g' -e "s/[$specialChars]/.*/g" -e 's/♥/E2%99%A5.*/' -e 's/♦/E2%99%A6.*/' -e 's/★/E2%98%85.*/' -e 's/ /.*2.*/g')
 
         linkList=$(echo $page | xmllint --html -xpath "//a/@href" -  | sed -e 's/href=//' -e 's/"//g')
         link=$(echo "$linkList" | grep -E "$selected")
@@ -52,7 +52,7 @@ do
         choice=$fullURL
     else
         inPage=$(echo $page | xmllint --html --xpath "//a/text()" -)
-        selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed -e 's/ /.*/g' -e 's/and//g' -e "s/[$specialChars]/.*/g")
+        selected=$(echo "$inPage" | sed "/$unnstrings$/d" | fzfCmd | sed -e 's/ and / /g' -e 's/ /.*/g' -e "s/[$specialChars]/.*/g")
         # echo $selected
         linkList=$(echo $page | xmllint --html -xpath "//a/@href" -  | sed -e 's/href=//' -e 's/"//g')
         # echo $linkList
